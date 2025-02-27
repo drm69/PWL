@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
 
 Route::get('/index', [PageController::class, 'index']);
 
@@ -49,5 +50,13 @@ Route::redirect('/here', '/there');
 Route::view('/welcome', 'welcome');
 Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
 
+Route::resource('photos', PhotoController::class)->only([
+    'index', 'show'
+   ]);
+   Route::resource('photos', PhotoController::class)->except([
+    'create', 'store', 'update', 'destroy'
+   ]);
 
+Route::get('/greeting', [WelcomeController::class, 'greeting']);
+   
 
